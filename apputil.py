@@ -4,7 +4,7 @@ import numpy as np
 
 #-----EXERCISE 1-----#
 #-----PART 1-----#
-def GroupEstimate(object):
+class GroupEstimate: 
     """
     This function implements a simple group-based estimator for
     categorical data
@@ -13,9 +13,9 @@ def GroupEstimate(object):
     estimates a continuouse target value using either the mean
     or median of each group
     """
-    def __init__(self, estimate: str):
+    def __init__(self, estimate: str = "mean"):
         """
-        Session state initializer
+        session state initializer
 
         function inputs:
         self, estimate : str (pass in the type of estimate to compute for each group. It must be either mean or median)
@@ -74,7 +74,7 @@ def GroupEstimate(object):
         """
 
         #convert input to dataFrame to ensure consistent access
-        X_ = pd.DataFrame(X_, columns=self.columns)
+        X_ = pd.DataFrame(X, columns=self.columns)
 
         results = []
         missing_count = 0
@@ -84,7 +84,7 @@ def GroupEstimate(object):
             #create a tuple key representing the group
             key = tuple(row[col] for col in self.columns)
 
-            #check if the group exists
+            #check if the groupe exists
             if key in self.group_estimates.index:
                 results.append(self.group_estimates.loc[key])
             else:
@@ -95,8 +95,4 @@ def GroupEstimate(object):
         if missing_count > 0:
             print(f"{missing_count} observations had missing groups.")
 
-        return results
-
-    
-
-
+        return np.array(results)
